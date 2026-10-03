@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 98%;
+    --foreground: 160 30% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 160 30% 12%;
+    --primary: 160 74% 26%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 160 30% 94%;
+    --secondary-foreground: 160 40% 18%;
+    --accent: 42 96% 48%;
+    --accent-foreground: 33 60% 12%;
+    --muted: 160 16% 93%;
+    --muted-foreground: 160 12% 40%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 150 60% 34%;
+    --warning: 36 90% 44%;
+    --border: 160 16% 88%;
+    --input: 160 16% 84%;
+    --ring: 160 74% 26%;
+    --radius: 0.75rem;
+  }
+  .dark {
+    --background: 160 30% 8%; --foreground: 40 20% 96%;
+    --card: 160 25% 11%; --card-foreground: 40 20% 96%;
+    --primary: 160 60% 40%; --primary-foreground: 0 0% 100%;
+    --secondary: 160 20% 18%; --secondary-foreground: 40 20% 92%;
+    --accent: 42 90% 55%; --accent-foreground: 33 60% 10%;
+    --muted: 160 18% 16%; --muted-foreground: 160 10% 62%;
+    --border: 160 18% 20%; --input: 160 18% 22%; --ring: 160 60% 40%;
+  }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground antialiased; }
+}
+
+/* ── PRINT: when the user clicks "Print card", ONLY the card prints.
+   print-color-adjust keeps the green background and gold colours. ── */
+@page { margin: 12mm; }
+
+@media print {
+  body * { visibility: hidden; }
+  .print-area, .print-area * { visibility: visible; }
+  .print-area {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .no-print { display: none !important; }
+}
