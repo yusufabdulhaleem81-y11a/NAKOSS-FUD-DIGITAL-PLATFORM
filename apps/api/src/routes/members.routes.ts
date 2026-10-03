@@ -11,12 +11,6 @@ const ALLOWED_IMAGE = new Set(['image/jpeg', 'image/png', 'image/webp']);
 const EXT_BY_MIME: Record<string, string> = {
   'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp',
 };
-const KOGI_LGAS = [
-  'Adavi', 'Ajaokuta', 'Ankpa', 'Bassa', 'Dekina', 'Ibaji', 'Idah',
-  'Igalamela-Odolu', 'Ijumu', 'Kabba/Bunu', 'Kogi', 'Lokoja', 'Mopa-Muro',
-  'Ofu', 'Ogori/Magongo', 'Okehi', 'Okene', 'Olamaboro', 'Omala',
-  'Yagba East', 'Yagba West',
-];
 
 /** Magic-byte check — never trust the client's declared MIME type. */
 function detectImageMime(buf: Buffer): string | null {
@@ -54,17 +48,10 @@ membersRouter.get('/api/public/reference-data', async (_req, res) => {
     db.from('states').select('id, name').order('name'),
     db.from('member_categories').select('id, label').eq('is_active', true).order('sort'),
   ]);
-  const kogi = (states.data ?? []).find((state: any) => state.name.toLowerCase() === 'kogi') ?? null;
-
   res.json({
     departments: (departments.data ?? []).map((d: any) => ({ id: d.id, name: d.name, faculty: d.faculties?.name ?? null })),
     levels: levels.data ?? [],
-    states: kogi ? [kogi] : [],
-    localGovernments: kogi ? KOGI_LGAS.map((name, index) => ({
-      id: `kogi-${index + 1}`,
-      stateId: kogi.id,
-      name,
-    })) : [],
+    states: states.data ?? [],
     categories: categories.data ?? [],
   });
 });
