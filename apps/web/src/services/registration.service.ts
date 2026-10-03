@@ -30,6 +30,13 @@ const FACULTIES = [
   'Faculty of Social Sciences',
 ];
 
+const KOGI_LGAS = [
+  'Adavi', 'Ajaokuta', 'Ankpa', 'Bassa', 'Dekina', 'Ibaji', 'Idah',
+  'Igalamela-Odolu', 'Ijumu', 'Kabba/Bunu', 'Kogi', 'Lokoja', 'Mopa-Muro',
+  'Ofu', 'Ogori/Magongo', 'Okehi', 'Okene', 'Olamaboro', 'Omala',
+  'Yagba East', 'Yagba West',
+];
+
 const MOCK_REFERENCE: ReferenceData = {
   departments: FACULTIES.map((name, index) => ({
     id: `f${index + 1}`,
@@ -40,17 +47,12 @@ const MOCK_REFERENCE: ReferenceData = {
     { id: 'l1', label: '100 Level' }, { id: 'l2', label: '200 Level' },
     { id: 'l3', label: '300 Level' }, { id: 'l4', label: '400 Level' },
   ],
-  states: [ { id: 's1', name: 'Jigawa' } ],
-  localGovernments: [
-    { id: 'lg1', stateId: 's1', name: 'Dutse' },
-    { id: 'lg2', stateId: 's1', name: 'Birnin Kudu' },
-    { id: 'lg3', stateId: 's1', name: 'Gwaram' },
-    { id: 'lg4', stateId: 's1', name: 'Hadejia' },
-    { id: 'lg5', stateId: 's1', name: 'Kazaure' },
-    { id: 'lg6', stateId: 's1', name: 'Kiyawa' },
-    { id: 'lg7', stateId: 's1', name: 'Miga' },
-    { id: 'lg8', stateId: 's1', name: 'Ringim' },
-  ],
+  states: [{ id: 's1', name: 'Kogi' }],
+  localGovernments: KOGI_LGAS.map((name, index) => ({
+    id: `lg${index + 1}`,
+    stateId: 's1',
+    name,
+  })),
   categories: [ { id: 'c1', label: 'Category A' }, { id: 'c2', label: 'Category B' }, { id: 'c3', label: 'Category C' } ],
 };
 
