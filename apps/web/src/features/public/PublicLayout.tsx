@@ -1,9 +1,10 @@
 import { NavLink, Link, Outlet } from 'react-router-dom';
-import { LogIn, UserPlus } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { LogoMark } from '@/components/shared/misc';
 import { BRAND } from '@/lib/brand';
 import { cn } from '@/lib/utils';
 import { useCurrentAdministration } from '@/hooks/queries';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const NAV = [
   { to: '/', label: 'Home', end: true },
@@ -44,12 +45,22 @@ export default function PublicLayout() {
                 Administration {administration.sessionLabel}
               </span>
             )}
-            <Link to="/login" className="inline-flex h-9 items-center gap-1.5 rounded-lg border bg-card px-3 text-sm font-medium hover:bg-muted">
-              <LogIn className="h-3.5 w-3.5" /> Login
-            </Link>
-            <Link to="/register" className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/90">
-              <UserPlus className="h-3.5 w-3.5" /> Register
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button type="button" aria-label="Open navigation menu" className="inline-flex h-10 w-10 items-center justify-center rounded-lg border hover:bg-muted md:hidden">
+                  <Menu className="h-5 w-5" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="md:hidden">
+                {NAV.map((n) => (
+                  <DropdownMenuItem key={n.to} asChild>
+                    <NavLink to={n.to} end={n.end} className={({ isActive }: { isActive: boolean }) => cn(isActive && 'bg-muted font-medium text-foreground')}>
+                      {n.label}
+                    </NavLink>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </header>

@@ -7,7 +7,7 @@ import { audit } from '../services/audit';
 import { currentAdministrationId } from '../lib/helpers';
 
 export const adminRouter = Router();
-adminRouter.use(authenticate);
+adminRouter.use('/api/admin', authenticate);
 
 /* ───────────────────────── STUDENTS ───────────────────────── */
 
