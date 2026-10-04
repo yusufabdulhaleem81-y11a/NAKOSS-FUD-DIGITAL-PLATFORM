@@ -100,6 +100,11 @@ export default function LoginPage() {
           <p className="mt-4 text-center text-sm text-muted-foreground">
             New student? <Link to="/register" className="font-medium text-primary hover:underline">Register here</Link>
           </p>
+          <p className="mt-2 text-center text-sm">
+            <Link to="/forgot-password" className="font-medium text-muted-foreground hover:text-primary hover:underline">
+              Forgot password?
+            </Link>
+          </p>
 
           {USE_MOCKS && (
             <Card className="mt-6 border-dashed">

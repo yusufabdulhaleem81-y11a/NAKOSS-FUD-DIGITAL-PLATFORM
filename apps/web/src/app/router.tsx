@@ -6,6 +6,8 @@ import PublicLayout from '@/features/public/PublicLayout';
 import { ModulePlaceholder, ForbiddenPage } from '@/features/placeholders';
 import VerifyPage from '@/features/verify/VerifyPage';
 import LoginPage from '@/features/auth/LoginPage';
+import ForgotPasswordPage from '@/features/auth/ForgotPasswordPage';
+import ResetPasswordPage from '@/features/auth/ResetPasswordPage';
 import RegisterPage from '@/features/auth/RegisterPage';
 import RegistrationSuccessPage from '@/features/auth/RegistrationSuccessPage';
 import ChangePasswordPage from '@/features/auth/ChangePasswordPage';
@@ -61,6 +63,8 @@ export const router = createBrowserRouter([
 
   /* ── STANDALONE PAGES ── */
   { path: '/login', element: <LoginPage /> },
+  { path: '/forgot-password', element: <ForgotPasswordPage /> },
+  { path: '/reset-password', element: <ResetPasswordPage /> },
   { path: '/register', element: <RegisterPage /> },
   { path: '/registration-success', element: <RegistrationSuccessPage /> },
   { path: '/change-password', element: <ChangePasswordPage /> },
