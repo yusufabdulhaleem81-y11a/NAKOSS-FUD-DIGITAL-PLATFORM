@@ -8,13 +8,12 @@ export interface ReferenceData {
   departments: { id: string; name: string; faculty: string | null }[];
   levels: { id: string; label: string }[];
   states: { id: string; name: string }[];
-  localGovernments: { id: string; stateId: string; name: string }[];
   categories: { id: string; label: string }[];
 }
 
 export interface RegisterInput {
   fullName: string; email: string; phone: string; matricNumber: string;
-  departmentId: string; levelId: string; stateId: string; localGovernmentId: string; categoryId: string;
+  departmentId: string; levelId: string; stateId: string; categoryId: string;
   password: string; photo?: File | null;
 }
 
@@ -47,12 +46,7 @@ const MOCK_REFERENCE: ReferenceData = {
     { id: 'l1', label: '100 Level' }, { id: 'l2', label: '200 Level' },
     { id: 'l3', label: '300 Level' }, { id: 'l4', label: '400 Level' },
   ],
-  states: [{ id: 's1', name: 'Kogi' }],
-  localGovernments: KOGI_LGAS.map((name, index) => ({
-    id: `lg${index + 1}`,
-    stateId: 's1',
-    name,
-  })),
+  states: KOGI_LGAS.map((name, index) => ({ id: `s${index + 1}`, name })),
   categories: [ { id: 'c1', label: 'Category A' }, { id: 'c2', label: 'Category B' }, { id: 'c3', label: 'Category C' } ],
 };
 

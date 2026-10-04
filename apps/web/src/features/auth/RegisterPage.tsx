@@ -17,8 +17,7 @@ const schema = z.object({
   matricNumber: z.string().min(3, 'Enter your matric number'),
   departmentId: z.string().min(1, 'Select your faculty'),
   levelId: z.string().min(1, 'Select your level'),
-  stateId: z.string().min(1, 'Select your state of origin'),
-  localGovernmentId: z.string().min(1, 'Select your local government area'),
+  stateId: z.string().min(1, 'Select your Local Government Area'),
   categoryId: z.string().optional(),
   password: z.string().min(10, 'Use at least 10 characters'),
   confirm: z.string(),
@@ -128,20 +127,12 @@ export default function RegisterPage() {
                 {errors.levelId && <p className="text-xs text-red-600">{errors.levelId.message}</p>}
               </div>
               <div className="space-y-1.5">
-                <Label>State of origin</Label>
+                <Label>Local Government Area</Label>
                 <Select {...register('stateId')}>
-                  <option value="">Select state…</option>
+                  <option value="">Select LGA…</option>
                   {(ref?.states ?? []).map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
                 </Select>
                 {errors.stateId && <p className="text-xs text-red-600">{errors.stateId.message}</p>}
-              </div>
-              <div className="space-y-1.5">
-                <Label>Local Government Area</Label>
-                <Select {...register('localGovernmentId')}>
-                  <option value="">Select LGA…</option>
-                  {(ref?.localGovernments ?? []).map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}
-                </Select>
-                {errors.localGovernmentId && <p className="text-xs text-red-600">{errors.localGovernmentId.message}</p>}
               </div>
               <div className="space-y-1.5 sm:col-span-2">
                 <Label>Membership category <span className="text-xs text-muted-foreground">(if applicable)</span></Label>

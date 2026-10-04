@@ -83,11 +83,6 @@ export const mockAnalytics: MembershipAnalytics = {
     { label: 'Jigawa', count: 152 }, { label: 'Kano', count: 128 }, { label: 'Bauchi', count: 97 },
     { label: 'Kaduna', count: 74 }, { label: 'Borno', count: 61 }, { label: 'Others', count: 231 },
   ],
-  byLocalGovernment: [
-    { label: 'Dutse', count: 44 }, { label: 'Birnin Kudu', count: 31 }, { label: 'Gwaram', count: 26 },
-    { label: 'Hadejia', count: 19 }, { label: 'Kazaure', count: 17 }, { label: 'Kiyawa', count: 14 },
-    { label: 'Miga', count: 12 }, { label: 'Ringim', count: 10 }, { label: 'Others', count: 58 },
-  ],
   byCategory: [
     { label: 'Category A', count: 268 }, { label: 'Category B', count: 221 }, { label: 'Category C', count: 254 },
   ],

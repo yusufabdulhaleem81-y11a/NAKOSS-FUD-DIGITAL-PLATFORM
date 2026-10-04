@@ -1,6 +1,9 @@
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Badge, Button, Card, CardContent, Input, Label } from '@/components/ui/primitives';
+import { Badge, Button, Card, CardContent, Input, Label, Select } from '@/components/ui/primitives';
 import { LogoMark } from '@/components/shared/misc';
+import { registrationService } from '@/services/registration.service';
 
 /**
  * UI-complete; the accept endpoint arrives with the invitation system (Phase 3).
@@ -9,6 +12,14 @@ import { LogoMark } from '@/components/shared/misc';
 export default function InviteAcceptPage() {
   const { token } = useParams();
   const navigate = useNavigate();
+  const [form, setForm] = useState({ stateId: '' });
+  const { data: ref } = useQuery({
+    queryKey: ['reference-data'],
+    queryFn: () => registrationService.getReferenceData(),
+    staleTime: 10 * 60_000,
+  });
+  const set = (key: keyof typeof form) => (event: React.ChangeEvent<HTMLSelectElement>) =>
+    setForm((current) => ({ ...current, [key]: event.target.value }));
 
   return (
     <div className="flex min-h-screen items-center justify-center p-6">
@@ -29,6 +40,13 @@ export default function InviteAcceptPage() {
             <div className="space-y-1.5">
               <Label>Create your password</Label>
               <Input type="password" placeholder="Minimum 10 characters" />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Local Government Area</Label>
+              <Select value={form.stateId} onChange={set('stateId')}>
+                <option value="">Select LGA…</option>
+                {(ref?.states ?? []).map((state) => <option key={state.id} value={state.id}>{state.name}</option>)}
+              </Select>
             </div>
             <Button className="w-full" onClick={() => navigate('/login')}>
               Accept invitation

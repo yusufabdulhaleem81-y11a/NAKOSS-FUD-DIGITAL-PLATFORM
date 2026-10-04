@@ -122,7 +122,7 @@ export default function PresidentDashboard() {
         </ChartCard>
 
         <ChartCard title="Local Government Distribution" description="Breakdown by the local government areas represented in the current session">
-          <SimpleBarChart data={stats.byLocalGovernment ?? stats.byState} color="#0f766e" />
+          <SimpleBarChart data={stats.byState} color="#0f766e" />
         </ChartCard>
       </div>
 

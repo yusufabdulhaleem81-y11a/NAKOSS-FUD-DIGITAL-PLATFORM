@@ -121,7 +121,7 @@ function EditMemberDialog({ member, onClose, onSave, saving }: {
                 <option value="">(unchanged)</option>
                 {(ref?.levels ?? []).map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
               </Select></div>
-            <div className="space-y-1.5"><Label>State</Label>
+            <div className="space-y-1.5"><Label>LGA (Kogi State)</Label>
               <Select value={form.stateId} onChange={set('stateId')}>
                 <option value="">(unchanged)</option>
                 {(ref?.states ?? []).map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}

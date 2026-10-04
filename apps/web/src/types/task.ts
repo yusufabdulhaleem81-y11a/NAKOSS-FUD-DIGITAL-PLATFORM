@@ -35,7 +35,6 @@ export interface MembershipAnalytics {
   byLevel: { label: string; count: number }[];
   byDepartment: { label: string; count: number }[];
   byState: { label: string; count: number }[];
-  byLocalGovernment?: { label: string; count: number }[];
   byCategory: { label: string; count: number }[];
   registrationTrend: { week: string; count: number }[];
 }
