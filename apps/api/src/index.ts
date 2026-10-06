@@ -64,6 +64,6 @@ app.use((err: unknown, _req: express.Request, res: express.Response, _next: expr
   return res.status(500).json({ message: 'Internal server error' });
 });
 
-app.listen(env.PORT, () => {
+app.listen(env.PORT, "0.0.0.0", () => {
   console.log(`✅ NAKOSS API running on http://localhost:${env.PORT}`);
 });
