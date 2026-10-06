@@ -6,6 +6,6 @@ export const BRAND = {
   tagline: 'One identity. Every administration.',
   monogram: 'ND',
   logoUrl: '/nakoss-logo.png',
-  fudLogoUrl: '/nakoss-logo.png',
+  fudLogoUrl: '/fud-logo.png',
   membershipPrefix: 'NAKOSS',
 } as const;
