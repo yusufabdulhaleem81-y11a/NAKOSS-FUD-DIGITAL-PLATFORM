@@ -27,7 +27,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   initialize: async () => {
     const { data: { session } } = await supabase.auth.getSession();
-    if (session) await get().setSession(session);
+    if (session && window.location.pathname === '/reset-password') {
+      set({ session, status: 'authenticated' });
+    } else if (session) await get().setSession(session);
     else set({ status: 'unauthenticated' });
   },
 

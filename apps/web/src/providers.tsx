@@ -17,6 +17,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         useAuthStore.setState({ session: null, profile: null, status: 'unauthenticated' });
         return;
       }
+      if (event === 'PASSWORD_RECOVERY' && session) {
+        useAuthStore.setState({ session, status: 'authenticated' });
+        return;
+      }
       if (session && (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED')) {
         void useAuthStore.getState().setSession(session);
       }
