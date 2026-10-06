@@ -31,6 +31,8 @@ export default function InviteAcceptPage() {
     fullName: '', matricNumber: '', departmentId: '', levelId: '', stateId: '',
     password: '', confirm: '',
   });
+  const [photo, setPhoto] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setForm({ ...form, [k]: e.target.value });
 
@@ -39,6 +41,7 @@ export default function InviteAcceptPage() {
       token, fullName: invite?.fullName || form.fullName,
       matricNumber: form.matricNumber, departmentId: form.departmentId,
       levelId: form.levelId, stateId: form.stateId, password: form.password,
+      photo,
     }),
     onSuccess: async () => {
       const profile = await authService.login(invite!.email, form.password);
@@ -106,6 +109,22 @@ export default function InviteAcceptPage() {
             <option value="">Select LGA…</option>
             {(ref?.states ?? []).map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
           </Select></div>
+        <div className="space-y-1.5">
+          <Label>Passport photo <span className="text-xs text-muted-foreground">(JPEG/PNG, max 2 MB — appears on your digital ID card)</span></Label>
+          <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-dashed p-3 hover:bg-muted/50">
+            {photoPreview
+              ? <img src={photoPreview} alt="preview" className="h-12 w-12 rounded-full object-cover" />
+              : <span className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-xs text-muted-foreground">Photo</span>}
+            <span className="text-sm text-muted-foreground">{photo ? photo.name : 'Click to choose a photo'}</span>
+            <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0] ?? null;
+                if (f && ['image/jpeg','image/png','image/webp'].includes(f.type) && f.size <= 2 * 1024 * 1024) {
+                  setPhoto(f); setPhotoPreview(URL.createObjectURL(f));
+                }
+              }} />
+          </label>
+        </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1.5"><Label>Create password</Label><Input type="password" autoComplete="new-password" value={form.password} onChange={set('password')} /></div>
           <div className="space-y-1.5"><Label>Confirm password</Label><Input type="password" autoComplete="new-password" value={form.confirm} onChange={set('confirm')} /></div>

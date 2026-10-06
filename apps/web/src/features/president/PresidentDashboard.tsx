@@ -124,6 +124,14 @@ export default function PresidentDashboard() {
         <ChartCard title="Local Government Distribution" description="Breakdown by the local government areas represented in the current session">
           <SimpleBarChart data={stats.byState} color="#0f766e" />
         </ChartCard>
+
+        <ChartCard title="Members by Faculty" description="The 9 faculties of FUD — live from registrations">
+          <SimpleBarChart data={stats.byDepartment} color="#f59e0b" />
+        </ChartCard>
+
+        <ChartCard title="Members by Local Government" description="Representation across the 21 LGAs of Kogi State">
+          <SimpleBarChart data={stats.byState} color="#0d9488" />
+        </ChartCard>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">

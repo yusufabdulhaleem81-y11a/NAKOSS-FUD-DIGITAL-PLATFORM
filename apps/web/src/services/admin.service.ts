@@ -52,6 +52,18 @@ export const adminService = {
 
   validateInvite: (token: string) =>
     api.get<{ email: string; fullName: string | null; positionTitle: string | null; sessionLabel: string | null }>(`/api/invites/${token}`),
-  acceptInvite: (input: { token: string; fullName: string; matricNumber: string; departmentId: string; levelId: string; stateId: string; password: string }) =>
-    api.post<{ ok: boolean; membershipNumber: string }>('/api/invites/accept', input),
+  async acceptInvite(input: { token: string; fullName: string; matricNumber: string;
+    departmentId: string; levelId: string; stateId: string; password: string;
+    photo?: File | null }): Promise<{ ok: boolean; membershipNumber: string; photoUrl: string | null }> {
+    const fd = new FormData();
+    fd.set('token', input.token);
+    fd.set('fullName', input.fullName);
+    fd.set('matricNumber', input.matricNumber);
+    fd.set('departmentId', input.departmentId);
+    fd.set('levelId', input.levelId);
+    fd.set('stateId', input.stateId);
+    fd.set('password', input.password);
+    if (input.photo) fd.set('photo', input.photo);
+    return api.postForm('/api/invites/accept', fd);
+  },
 };

@@ -1,9 +1,11 @@
-import { BriefcaseBusiness, ClipboardList, FileBarChart, Inbox } from 'lucide-react';
+import { BriefcaseBusiness, Check, ClipboardList, Copy, Download, FileBarChart, Inbox, Printer } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
-import { Badge } from '@/components/ui/primitives';
+import { Badge, Button, Skeleton } from '@/components/ui/primitives';
 import { DashboardStat } from '@/components/shared/DashboardStat';
+import { DigitalIdCard } from '@/components/shared/DigitalIdCard';
 import { PageHeader } from '@/components/shared/misc';
-import { useAnnouncements, useMyTasks, useMyReports } from '@/hooks/queries';
+import { useAnnouncements, useMyCard, useMyTasks, useMyReports } from '@/hooks/queries';
+import { useCardActions } from '@/hooks/useCardActions';
 import { useAuthStore } from '@/store/auth.store';
 import { PERMISSION } from '@/lib/permissions';
 import { timeAgo } from '@/lib/utils';
@@ -25,6 +27,8 @@ export default function ExcoDashboard() {
   const { data: myTasks = [] } = useMyTasks();
   const { data: reports = [] } = useMyReports();
   const { data: announcements = [] } = useAnnouncements();
+  const { data: card, isLoading: cardLoading } = useMyCard();
+  const actions = useCardActions(card?.membershipNumber ?? '');
 
   const modules = OFFICE_MODULES.filter((m) => hasPermission(m.permission));
   const openTasks = myTasks.filter((t) => t.status !== 'completed').length;
@@ -47,6 +51,26 @@ export default function ExcoDashboard() {
         </div>
         <Badge className="ml-auto bg-emerald-100 text-emerald-700">✓ Verified Officer</Badge>
       </div>
+
+      {cardLoading && <Skeleton className="mx-auto h-[400px] w-[340px]" />}
+      {card && (
+        <section>
+          <h2 className="mb-3 text-lg font-semibold">My Digital ID</h2>
+          <div className="flex flex-col items-center gap-4">
+            <DigitalIdCard ref={actions.ref} card={card} />
+            <div className="no-print flex flex-wrap justify-center gap-2">
+              <Button variant="outline" onClick={actions.copy}>
+                {actions.copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                {actions.copied ? 'Copied!' : 'Copy number'}
+              </Button>
+              <Button variant="outline" onClick={actions.download} disabled={actions.downloading}>
+                <Download className="h-4 w-4" /> {actions.downloading ? 'Preparing…' : 'Download'}
+              </Button>
+              <Button onClick={actions.print}><Printer className="h-4 w-4" /> Print</Button>
+            </div>
+          </div>
+        </section>
+      )}
 
       <div className="grid gap-4 sm:grid-cols-3">
         <DashboardStat label="Open Tasks" value={openTasks} icon={ClipboardList} />
